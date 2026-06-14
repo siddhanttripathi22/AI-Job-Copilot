@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import { AppProvider } from "@/context/AppContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "AI Job Copilot",
-  description: "AI Powered Job Search Assistant",
+  description: "Your AI powered job assistant",
 };
 
 export default function RootLayout({
@@ -17,11 +17,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-950 min-h-screen`}>
-        <Navbar />
-        <main className="max-w-4xl mx-auto px-6 py-8">
+      <body className={`${inter.className} bg-[#0a0e1a]`}>
+        <AppProvider>
           {children}
-        </main>
+        </AppProvider>
       </body>
     </html>
   );

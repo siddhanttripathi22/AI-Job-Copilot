@@ -6,3 +6,7 @@ python-dotenv
 pydantic 
 PyPDF2
 groq
+chromadb
+langchain
+langchain-community
+sentence-transformers

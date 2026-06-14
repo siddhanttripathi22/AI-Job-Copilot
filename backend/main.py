@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from routes.resume import router as resume_router
 from routes.jd_analysis import router as jd_router
 from routes.cover_letter import router as cover_router
+from routes.analyze import router as analyze_router
 
 
 
@@ -30,6 +31,13 @@ app.include_router(
     prefix="/cover-letter",
     tags=["Cover Letter"]
 )
+app.include_router(
+    analyze_router,
+    prefix="/analyze",
+    tags=["FullAnalysis"]
+)
+
+
 @app.get("/")
 def root():
     return {"message":"AI Job Copilot Backend is running!"}

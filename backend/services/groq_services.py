@@ -46,7 +46,6 @@ Resume:
     )
 
     result = clean_json(response.choices[0].message.content)
-    print("Resume AI Response:", result[:200])
     return json.loads(result)
 
 
@@ -122,6 +121,73 @@ Rules:
             }
         ],
         temperature=0.5
+    )
+
+    return response.choices[0].message.content
+def analyze_with_rag(context: str, jd_text: str, company_name: str) -> dict:
+   prompt = """You are an expert system and career coach. Analyze this candidate's
+   resume and relevent experience against the job description.Return only this raw json ,no markdown,no explanation:
+   {
+    "match_score": 75,
+    "matching_skills": ["skill1", "skill2"],
+    "missing_skills": ["skill1", "skill2"],
+    "strengths": ["point1", "point2"],
+    "suggestions": ["tip1", "tip2"],
+    "verdict": "Good Match",
+    "improvements": ["tip1", "tip2"],
+    "summary": "2 line professional summary"
+   }
+   Candidate's Relevent Experience:""" + context + """
+   Job Description:""" + jd_text + """
+   Company:""" + company_name
+   response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are an expert ATS system and career coach. Return ONLY raw JSON. No markdown, no backticks, no explanation."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0
+    )
+   result = clean_json(response.choices[0].message.content)
+   print("RAG AI Response:", result[:200])
+   return json.loads(result)
+def generate_cover_letter_with_rag(
+    context: str,
+    jd_text: str,
+    company_name: str
+) -> str:
+    prompt = """Write a professional cover letter for:
+Company: """ + company_name + """
+Candidate's Relevent Experience:""" + context + """
+Job Description:
+""" + jd_text + """
+Rules:
+- 3 paragraphs only
+-Use only the provide experience details
+- Professional but warm tone
+- Highlight matching skills
+- End with call to action
+- No placeholders like [Your Name]"""
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are an expert cover letter writer. Write complete, professional cover letters using only the provided experience details."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0.7
     )
 
     return response.choices[0].message.content
