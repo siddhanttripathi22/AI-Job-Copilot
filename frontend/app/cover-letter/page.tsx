@@ -23,7 +23,7 @@ export default function CoverLetterPage() {
 
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/cover-letter/generate`,
+       "https://3.108.250.109.sslip.io/cover-letter/generate",
         formData
       );
       setLetter(res.data.cover_letter);
