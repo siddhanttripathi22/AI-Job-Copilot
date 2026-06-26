@@ -13,7 +13,7 @@ export default function ResumeUpload() {
     formData.append("file", file);
     try {
       const res = await axios.post(
-       `${process.env.NEXT_PUBLIC_API_URL}/resume/upload`,
+       "https://3.108.250.109.sslip.io/resume/upload",
         formData
       );
       dispatch({
