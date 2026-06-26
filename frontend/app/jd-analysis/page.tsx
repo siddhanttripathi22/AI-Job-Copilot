@@ -19,7 +19,7 @@ export default function JDAnalysisPage() {
 
     try {
       const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/jd/analyze`,
+     "https://3.108.250.109.sslip.io/jd/analyze",
         formData
       );
       setResult(res.data.data);
