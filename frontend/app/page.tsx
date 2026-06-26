@@ -28,7 +28,7 @@ export default function Home() {
 
     try {
       const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/analyze/full-analysis`,
+      "https://3.108.250.109.sslip.io/analyze/full-analysis",
         formData
       );
       dispatch({ type: "SET_RESULT", payload: res.data });
